@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}Imgx - Home{% endblock %}
+
+{% block content %}
+<div class="header">
+    <div class="container">
+        <!-- <h1>Imgx</h1> -->
+        <p>Your all-in-one solution for image processing needs</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row g-4">
+        <!-- Format Converter -->
+        <div class="col-md-6 col-lg-4">
+            <div class="feature-card">
+                <div class="card-body text-center">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8.267 10l-2.383-3.32zm-.708 0L2.793 10l2.383 3.32a.5.5 0 0 0 .768-.64L3.71 10l2.233-2.68a.5.5 0 0 0-.768-.64zm6.44 0a.5.5 0 0 0-.768.64L13.349 10l-2.233 2.68a.5.5 0 1 0 .768.64L14.267 10l-2.383-3.32a.5.5 0 0 0-.268-.18z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Format Converter</h3>
+                    <p class="feature-description">Convert your images between PNG, JPG, WEBP and more formats with a single click.</p>
+                    <a href="/convert" class="feature-link">Convert Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Image Resizer -->
+        <div class="col-md-6 col-lg-4">
+            <div class="feature-card">
+                <div class="card-body text-center">
+                    <span class="coming-soon">Coming Soon</span>
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.828-1.165a.5.5 0 0 1 .702.165 5.989 5.989 0 0 1 1.115 2.5.5.5 0 1 1-.967.259 4.995 4.995 0 0 0-.927-2.081.5.5 0 0 1 .077-.743zM7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0L7.1 4.995z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Image Resizer</h3>
+                    <p class="feature-description">Resize images to your desired dimensions while maintaining quality.</p>
+                    <a href="#" class="feature-link disabled">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Image Optimizer -->
+        <div class="col-md-6 col-lg-4">
+            <div class="feature-card">
+                <div class="card-body text-center">
+                    <span class="coming-soon">Coming Soon</span>
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Image Optimizer</h3>
+                    <p class="feature-description">Optimize your images for web by reducing file size without losing quality.</p>
+                    <a href="#" class="feature-link disabled">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

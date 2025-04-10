@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}Page Not Found - Image Processor{% endblock %}
+
+{% block content %}
+<div class="container error-page">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="mt-5">404 - Page Not Found</h1>
+            <p class="lead">The page you are looking for doesn't exist or has been moved.</p>
+            <img src="{{ url_for('static', filename='image/404.svg') }}" alt="Broken image" class="error-image img-fluid mb-4" style="max-width: 200px;">
+            <div class="mt-4">
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Go to Homepage</a>
+                <a href="{{ url_for('convert') }}" class="btn btn-outline-primary ml-2">Convert an Image</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

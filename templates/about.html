@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+
+{% block title %}About - Imgx{% endblock %}
+
+{% block content %}
+<div class="header">
+    <div class="container">
+        <h1>About Our App</h1>
+        <p>Learn more about the Imgx and its features</p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- App Overview Section -->
+    <section class="mb-5">
+        <div class="feature-card">
+            <div class="card-body p-4">
+                <h2 class="section-title">Our Mission</h2>
+                <p>Imgx was created to simplify everyday image tasks for users who need quick and efficient solutions without complex software. Whether you're a content creator, web developer, or someone who just needs to convert an image format, our tools help you get the job done easily.</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="about-feature">
+                            <div class="about-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.25-14.75v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 1.5 0zm0 10.5v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 1.5 0zM1.5 8a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 1.5 8zm10.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 12 8zM4.42 4.42a.75.75 0 0 1 1.06 0l1.06 1.06a.75.75 0 1 1-1.06 1.06L4.42 5.48a.75.75 0 0 1 0-1.06zm5.04 5.04a.75.75 0 0 1 1.06 0l1.06 1.06a.75.75 0 1 1-1.06 1.06l-1.06-1.06a.75.75 0 0 1 0-1.06zM4.42 11.58a.75.75 0 0 1 0-1.06l1.06-1.06a.75.75 0 0 1 1.06 1.06l-1.06 1.06a.75.75 0 0 1-1.06 0zm5.04-5.04a.75.75 0 0 1 0-1.06l1.06-1.06a.75.75 0 0 1 1.06 1.06l-1.06 1.06a.75.75 0 0 1-1.06 0z"/>
+                                </svg>
+                            </div>
+                            <h3>Simple & Intuitive</h3>
+                            <p>Our app focuses on simplicity and user experience, making image processing tasks accessible to everyone.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="about-feature">
+                            <div class="about-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm4 8a4 4 0 0 1-8 0V5a4 4 0 1 1 8 0v6zM8 0a5 5 0 0 0-5 5v6a5 5 0 0 0 10 0V5a5 5 0 0 0-5-5z"/>
+                                </svg>
+                            </div>
+                            <h3>No Registration Required</h3>
+                            <p>We believe in providing value without barriers. Use our tools instantly without creating an account.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="mb-5">
+        <h2 class="section-title text-center mb-4">Our Features</h2>
+        <div class="row g-4">
+            <!-- Format Converter -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="card-body text-center">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8.267 10l-2.383-3.32zm-.708 0L2.793 10l2.383 3.32a.5.5 0 0 0 .768-.64L3.71 10l2.233-2.68a.5.5 0 0 0-.768-.64zm6.44 0a.5.5 0 0 0-.768.64L13.349 10l-2.233 2.68a.5.5 0 1 0 .768.64L14.267 10l-2.383-3.32a.5.5 0 0 0-.268-.18z"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Format Converter</h3>
+                        <p class="feature-description">Convert between popular image formats like PNG, JPG, WEBP, and more with just a few clicks. Preserve quality while changing formats.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Image Resizer -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="card-body text-center">
+                        <span class="coming-soon">Coming Soon</span>
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.828-1.165a.5.5 0 0 1 .702.165 5.989 5.989 0 0 1 1.115 2.5.5.5 0 1 1-.967.259 4.995 4.995 0 0 0-.927-2.081.5.5 0 0 1 .077-.743zM7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0L7.1 4.995z"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Image Resizer</h3>
+                        <p class="feature-description">Scale your images to specific dimensions while maintaining aspect ratio and quality. Perfect for social media posts, thumbnails, and web optimization.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Image Optimizer -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="card-body text-center">
+                        <span class="coming-soon">Coming Soon</span>
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Image Optimizer</h3>
+                        <p class="feature-description">Reduce file sizes without noticeable quality loss. Make your website load faster and save storage space with our optimizer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section>
+        <div class="feature-card text-center">
+            <div class="card-body p-4">
+                <h2 class="section-title">Questions or Feedback?</h2>
+                <p class="mb-4">We're constantly improving our app and would love to hear from you.</p>
+                <a href="" class="feature-link">Contact Us</a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .section-title {
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+    
+    .about-feature {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+        background-color: var(--card-bg);
+        box-shadow: var(--card-shadow);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .about-feature:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--card-shadow-hover);
+    }
+    
+    .about-icon {
+        color: var(--primary);
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .about-feature h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+    
+    .tech-stack {
+        margin: 2rem 0;
+    }
+    
+    .tech-item {
+        margin-bottom: 1rem;
+    }
+    
+    .tech-name {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    
+    .tech-bar {
+        height: 10px;
+        background-color: var(--input-border);
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    
+    .tech-progress {
+        height: 100%;
+        background-color: var(--primary);
+        border-radius: 5px;
+    }
+    
+    @media (max-width: 767.98px) {
+        .about-feature {
+            margin-bottom: 1rem;
+        }
+    }
+</style>
+{% endblock %}
