@@ -2,6 +2,10 @@
 
 {% block title %}Image Format Converter{% endblock %}
 
+{% block extra_head %}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="/static/css/convert-image.css"> <!-- Custom CSS for this page -->
 {% endblock %}

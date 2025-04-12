@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('remove-image').addEventListener('click', resetInterface);
 });
 
+const getCSRFToken = () => {
+    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+};
+
+
 function handleFileChange(event) {
     const file = event.target.files[0];
     const preview = document.getElementById('preview');
@@ -127,13 +132,6 @@ function resetInterface() {
 
 function handleFormSubmit(event) {
     event.preventDefault();
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-
-    if (!csrfToken) {
-        alert("Please reload the page.");
-        return;
-    }
 
     // Check file size again before submission
     const file = document.getElementById('file-input').files[0];
@@ -169,7 +167,7 @@ function handleFormSubmit(event) {
         body: formData,
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRFToken': csrfToken
+            'X-CSRFToken': getCSRFToken()
         }
     })
     .then(response => {

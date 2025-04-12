@@ -1,6 +1,10 @@
 const allowedFormats = ["png", "jpg", "jpeg", "webp", "heic", "heif", "gif"];
 let compressedImageData = null;
 
+const getCSRFToken = () => {
+    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+};
+
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('uploadForm').addEventListener('submit', handleCompressSubmit);
     document.getElementById('remove-image').addEventListener('click', resetCompressInterface);
@@ -120,7 +124,7 @@ function handleCompressSubmit(event) {
         body: formData,
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRFToken': csrfToken
+            'X-CSRFToken': getCSRFToken()
         }
     })
         .then(response => {
