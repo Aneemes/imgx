@@ -8,6 +8,8 @@ from flask_limiter.util import get_remote_address
 from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
+csrf = CSRFProtect(app)
+csrf.init_app(app)
 app.config['SECRET_KEY'] = "shouldprobalychangethislater"
 
 
@@ -23,7 +25,6 @@ limiter = Limiter(
     storage_uri="memory://",
 )
 
-csrf = CSRFProtect(app)
 
 
 def allowed_file(filename):
