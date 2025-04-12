@@ -160,6 +160,7 @@ function handleFormSubmit(event) {
     // Send AJAX request
     fetch('/convert', {
         method: 'POST',
+        credentials: 'include',
         body: formData,
         headers: {
             'X-Requested-With': 'XMLHttpRequest',

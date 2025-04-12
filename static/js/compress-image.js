@@ -110,6 +110,7 @@ function handleCompressSubmit(event) {
 
     fetch('/compress', {
         method: 'POST',
+        credentials: 'include',
         body: formData,
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
