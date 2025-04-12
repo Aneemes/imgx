@@ -10,7 +10,13 @@ from flask_wtf.csrf import CSRFProtect
 app = Flask(__name__)
 csrf = CSRFProtect(app)
 csrf.init_app(app)
+
+app.config['WTF_CSRF_TIME_LIMIT'] = None
+app.config['WTF_CSRF_METHODS'] = ['POST', 'PUT', 'PATCH', 'DELETE']
+app.config['WTF_CSRF_HEADERS'] = ['X-CSRFToken']
+
 app.config['SECRET_KEY'] = "shouldprobalychangethislater"
+
 
 
 ALLOWED_INPUT_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp', 'gif', 'tif', 'svg', 'heic'}
@@ -88,6 +94,7 @@ def compress():
     if request.method == 'POST':
         file = request.files.get('image')
         quality = request.form.get('quality')
+
         is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
         if file and allowed_file(file.filename):

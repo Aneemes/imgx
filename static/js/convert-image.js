@@ -130,6 +130,11 @@ function handleFormSubmit(event) {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 
+    if (!csrfToken) {
+        alert("Please reload the page.");
+        return;
+    }
+
     // Check file size again before submission
     const file = document.getElementById('file-input').files[0];
     const maxSize = 10 * 1024 * 1024; // 10MB

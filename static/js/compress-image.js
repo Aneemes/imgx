@@ -83,6 +83,12 @@ function handleCompressSubmit(event) {
     event.preventDefault();
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+
+    if (!csrfToken) {
+        alert("Please reload the page.");
+        return;
+    }
+
     const fileInput = document.getElementById('file-input');
     const qualitySlider = document.getElementById('quality-slider');
     const file = fileInput.files[0];
