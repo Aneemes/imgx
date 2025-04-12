@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('remove-image').addEventListener('click', resetInterface);
 });
 
-const getCSRFToken = () => {
-    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-};
+// const getCSRFToken = () => {
+//     return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+// };
 
 
 function handleFileChange(event) {

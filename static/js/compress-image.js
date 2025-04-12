@@ -1,9 +1,9 @@
 const allowedFormats = ["png", "jpg", "jpeg", "webp", "heic", "heif", "gif"];
 let compressedImageData = null;
 
-const getCSRFToken = () => {
-    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-};
+// const getCSRFToken = () => {
+//     return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+// };
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('uploadForm').addEventListener('submit', handleCompressSubmit);
