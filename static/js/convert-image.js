@@ -1,3 +1,4 @@
+
 const allowedFormats = ["png", "jpg", "jpeg", "webp"];
 let convertedImageData = null;
 
@@ -13,13 +14,45 @@ function handleFileChange(event) {
     const fileLabel = document.getElementById('file-label');
     const fileNameDisplay = document.getElementById('file-name-display');
     const removeButton = document.getElementById('remove-image');
+    const maxSize = 10 * 1024 * 1024; // 10MB
 
     if (!file) return;
 
+    // Check file size
+    if (file.size > maxSize) {
+        // Display warning
+        fileLabel.textContent = "Choose an image file";
+        fileNameDisplay.innerHTML = `
+            <div class="file-size-warning exceeded">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 4px;">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>
+                File size (${(file.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 10MB limit.
+            </div>`;
+        
+        // Clear the file input
+        event.target.value = '';
+        
+        // Hide preview if it was shown
+        preview.style.display = 'none';
+        removeButton.style.display = 'none';
+        
+        // Reset select box
+        formatSelect.innerHTML = '<option value="" disabled selected>Select format</option>';
+        
+        return;
+    }
+
     // Update the file name display
     fileLabel.textContent = "Change image file";
-    fileNameDisplay.textContent = file.name;
-
+    // Show file name with size
+    fileNameDisplay.innerHTML = `
+        ${file.name}
+        <div class="file-size-warning">
+            File size: ${(file.size / (1024 * 1024)).toFixed(2)} MB
+        </div>`;
+    
     // Preview
     const reader = new FileReader();
     reader.onload = function(e) {
@@ -94,16 +127,35 @@ function resetInterface() {
 
 function handleFormSubmit(event) {
     event.preventDefault();
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+
+    // Check file size again before submission
+    const file = document.getElementById('file-input').files[0];
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    
+    if (file && file.size > maxSize) {
+        alert('File size exceeds the 10MB limit. Please choose a smaller file.');
+        return;
+    }
+    
+    const fileInput = document.getElementById('file-input');
+    const formatSelect = document.getElementById('format');
+    
+    // Validate inputs
+    if (!fileInput.files.length || !formatSelect.value) {
+        alert('Please select both an image and output format');
+        return;
+    }
     
     // Show loading state
     document.getElementById('convert-btn').style.display = 'none';
     document.getElementById('loading-spinner').style.display = 'block';
     
     // Create FormData from the form
-    const formData = new FormData(document.getElementById('uploadForm'));
-    
-    // Get CSRF token from the hidden input
-    const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+    const formData = new FormData();
+    formData.append('image', fileInput.files[0]);
+    formData.append('format', formatSelect.value);
     
     // Send AJAX request
     fetch('/convert', {
@@ -112,12 +164,11 @@ function handleFormSubmit(event) {
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
             'X-CSRFToken': csrfToken
-        },
-        credentials: 'same-origin' // Important for including cookies
+        }
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error(`Server responded with status: ${response.status}`);
+            throw new Error('Network response was not ok');
         }
         return response.blob();
     })
@@ -127,7 +178,7 @@ function handleFormSubmit(event) {
         convertedImageData = blob;
         
         // Update the result view
-        showConversionResult(objectURL, formData.get('format'));
+        showConversionResult(objectURL, formatSelect.value);
         
         // Hide loading state
         document.getElementById('loading-spinner').style.display = 'none';

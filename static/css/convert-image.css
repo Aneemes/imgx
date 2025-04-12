@@ -111,7 +111,7 @@
 }
 
 .select-wrapper::after {
-    content: '▼';
+    /* content: '▼'; */
     font-size: 0.8rem;
     color: var(--text-muted);
     position: absolute;

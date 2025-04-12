@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block title %}Image Compressor{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/convert-image.css"> <!-- Reuse same CSS -->
+{% endblock %}
+{% block extra_js %}
+<script src="/static/js/compress-image.js"></script> <!-- JS will handle slider & preview -->
+{% endblock %}
+
+{% block content %}
+<div class="header text-center">
+    <h1>Image Compressor</h1>
+    <p class="mb-0">Reduce image file size without losing much quality</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Upload Column -->
+        <div class="col-md-7">
+            <div class="feature-card">
+                <div class="card-body p-4">
+                    <h4 class="mb-3">Upload & Compress</h4>
+                    <form id="uploadForm">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <div class="file-input-wrapper">
+                            <div class="file-input-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                                </svg>
+                                <span id="file-label">Choose an image file</span>
+                            </div>
+                            <input type="file" name="image" id="file-input" accept="image/*" required onchange="handleFileChange(event)">
+                        </div>
+
+                        <div id="file-name-display" class="file-name"></div>
+
+                        <div class="preview-container">
+                            <img id="preview" class="preview-image" src="#" alt="Image Preview">
+                            <div id="remove-image" class="remove-image-btn">✕</div>
+                        </div>
+
+                        <div class="select-wrapper">
+                            <label for="quality" class="form-label">Compression Quality: <span id="quality-value">75</span></label>
+                            <input type="range" id="quality-slider" min="10" max="100" value="80" oninput="updateQualityValue(this.value)">
+                        </div>
+
+                        <button type="submit" id="compress-btn" class="convert-btn">Compress Image</button>
+                        <div class="spinner-border text-primary loading-spinner" id="loading-spinner" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+
+                        {% if compression_success %}
+                        <div class="conversion-success text-center mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
+                                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                            </svg>
+                            Image compressed successfully!
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Column -->
+        <div class="col-md-5 result-column" id="result-column">
+            <div class="feature-card h-100">
+                <div class="card-body p-4 text-center d-flex flex-column justify-content-center" id="result-container">
+                    {% if compression_success %}
+                        <img src="data:{{ mime_type }};base64,{{ image_data }}" alt="Compressed Preview" id="result-image" class="preview-image" style="display: block;">
+                        <a href="#" id="download-link" class="download-link" onclick="downloadCompressedImage('{{ filename }}', '{{ mime_type }}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 6px;">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                            Download Compressed File
+                        </a>
+                        <button class="btn btn-sm btn-outline-secondary mt-3" onclick="resetInterface()">Compress Another Image</button>
+                    {% else %}
+                        <div class="text-muted" id="placeholder-content">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16" class="mb-3 opacity-25">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                            <p>Your compressed image will appear here</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
