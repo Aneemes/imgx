@@ -62,7 +62,7 @@ def about():
     return render_template('about.html')
 
 @app.route('/convert', methods=['GET', 'POST'])
-@limiter.limit("5/minute", override_defaults=False, methods=['POST'])
+@limiter.limit("50/minute", override_defaults=False, methods=['POST'])
 def convert():
     if request.method == 'POST':
         file = request.files.get('image')
@@ -105,7 +105,7 @@ def convert():
     return render_template('convert-image.html')
 
 @app.route("/compress", methods=['GET', 'POST'])
-@limiter.limit("5/minute", override_defaults=False, methods=['POST'])
+@limiter.limit("50/minute", override_defaults=False, methods=['POST'])
 def compress():
     if request.method == 'POST':
         file = request.files.get('image')
