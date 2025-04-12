@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    fetch('/get-csrf-token', { credentials: 'include' })
+
     // Get theme toggle button and icon elements
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');

@@ -6,6 +6,9 @@ from werkzeug.utils import secure_filename
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf.csrf import CSRFProtect
+from flask_wtf.csrf import generate_csrf
+from flask import make_response
+
 
 app = Flask(__name__)
 csrf = CSRFProtect(app)
@@ -36,6 +39,16 @@ limiter = Limiter(
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_INPUT_EXTENSIONS
+
+
+
+@app.route('/get-csrf-token', methods=['GET'])
+def get_csrf_token():
+    response = make_response('', 204)
+    # Set the CSRF token in the cookie
+    response.set_cookie('csrf_token', generate_csrf())
+    return response
+
 
 @app.route('/')
 def index():
