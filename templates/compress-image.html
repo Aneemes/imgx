@@ -2,10 +2,6 @@
 
 {% block title %}Image Compressor{% endblock %}
 
-{% block extra_head %}
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-{% endblock %}
-
 {% block extra_css %}
 <link rel="stylesheet" href="/static/css/convert-image.css"> <!-- Reuse same CSS -->
 {% endblock %}
