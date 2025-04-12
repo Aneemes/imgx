@@ -8,6 +8,7 @@ from flask_limiter.util import get_remote_address
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf.csrf import generate_csrf
 from flask import make_response
+from flask_cors import CORS
 
 
 app = Flask(__name__)
@@ -20,6 +21,8 @@ app.config['WTF_CSRF_HEADERS'] = ['X-CSRFToken']
 
 app.config['SECRET_KEY'] = "shouldprobalychangethislater"
 
+# Flask backend
+CORS(app, supports_credentials=True, origins=["https://imgx-pearl.vercel.app/"])
 
 
 ALLOWED_INPUT_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp', 'gif', 'tif', 'svg', 'heic'}
