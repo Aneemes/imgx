@@ -160,15 +160,15 @@ function handleFormSubmit(event) {
     formData.append('image', fileInput.files[0]);
     formData.append('format', formatSelect.value);
     
-    setTimeout(() => {
-        fetch('/convert', {
-            method: 'POST',
-            credentials: 'include',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': csrfToken
-            }
+    // Send AJAX request
+    fetch('/convert', {
+        method: 'POST',
+        credentials: 'include',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': getCSRFToken()
+        }
     })
     .then(response => {
         if (!response.ok) {
@@ -205,9 +205,7 @@ function handleFormSubmit(event) {
         document.getElementById('loading-spinner').style.display = 'none';
         alert('Error converting image. Please try again.');
     });
-}, 300); // ⏳ Adjust this as needed
 }
-
 
 function showConversionResult(objectURL, format) {
     const resultContainer = document.getElementById('result-container');

@@ -118,15 +118,14 @@ function handleCompressSubmit(event) {
     formData.append('image', file);
     formData.append('quality', quality);
 
-    setTimeout(() => {
-        fetch('/convert', {
-            method: 'POST',
-            credentials: 'include',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': csrfToken
-            }
+    fetch('/compress', {
+        method: 'POST',
+        credentials: 'include',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': getCSRFToken()
+        }
     })
         .then(response => {
             if (!response.ok) throw new Error('Network error');
@@ -145,9 +144,7 @@ function handleCompressSubmit(event) {
             document.getElementById('loading-spinner').style.display = 'none';
             document.getElementById('compress-btn').style.display = 'block';
         });
-    }, 300); // ⏳ Adjust this as needed
 }
-
 
 function showCompressResult(objectURL, originalFilename) {
     const resultContainer = document.getElementById('result-container');
