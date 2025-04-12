@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('remove-image').addEventListener('click', resetInterface);
 });
 
-// const getCSRFToken = () => {
-//     return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-// };
+const getCSRFToken = () => {
+    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+};
 
 
 function handleFileChange(event) {
@@ -160,15 +160,15 @@ function handleFormSubmit(event) {
     formData.append('image', fileInput.files[0]);
     formData.append('format', formatSelect.value);
     
-    // Send AJAX request
-    fetch('/convert', {
-        method: 'POST',
-        credentials: 'include',
-        body: formData,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRFToken': getCSRFToken()
-        }
+    setTimeout(() => {
+        fetch('/convert', {
+            method: 'POST',
+            credentials: 'include',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrfToken
+            }
     })
     .then(response => {
         if (!response.ok) {
@@ -205,7 +205,9 @@ function handleFormSubmit(event) {
         document.getElementById('loading-spinner').style.display = 'none';
         alert('Error converting image. Please try again.');
     });
+}, 300); // ⏳ Adjust this as needed
 }
+
 
 function showConversionResult(objectURL, format) {
     const resultContainer = document.getElementById('result-container');

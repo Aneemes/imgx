@@ -53,6 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-const getCSRFToken = () => {
-    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-};
+// const getCSRFToken = () => {
+//     return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+// };

@@ -1,9 +1,9 @@
 const allowedFormats = ["png", "jpg", "jpeg", "webp", "heic", "heif", "gif"];
 let compressedImageData = null;
 
-// const getCSRFToken = () => {
-//     return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-// };
+const getCSRFToken = () => {
+    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+};
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('uploadForm').addEventListener('submit', handleCompressSubmit);
@@ -118,14 +118,15 @@ function handleCompressSubmit(event) {
     formData.append('image', file);
     formData.append('quality', quality);
 
-    fetch('/compress', {
-        method: 'POST',
-        credentials: 'include',
-        body: formData,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRFToken': getCSRFToken()
-        }
+    setTimeout(() => {
+        fetch('/convert', {
+            method: 'POST',
+            credentials: 'include',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrfToken
+            }
     })
         .then(response => {
             if (!response.ok) throw new Error('Network error');
@@ -144,7 +145,9 @@ function handleCompressSubmit(event) {
             document.getElementById('loading-spinner').style.display = 'none';
             document.getElementById('compress-btn').style.display = 'block';
         });
+    }, 300); // ⏳ Adjust this as needed
 }
+
 
 function showCompressResult(objectURL, originalFilename) {
     const resultContainer = document.getElementById('result-container');
