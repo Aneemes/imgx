@@ -121,6 +121,7 @@ function handleCompressSubmit(event) {
     fetch('/compress', {
         method: 'POST',
         credentials: 'include',
+        mode: 'cors',
         body: formData,
         headers: {
             'X-Requested-With': 'XMLHttpRequest',

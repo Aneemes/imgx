@@ -164,6 +164,7 @@ function handleFormSubmit(event) {
     fetch('/convert', {
         method: 'POST',
         credentials: 'include',
+        mode: 'cors',
         body: formData,
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
