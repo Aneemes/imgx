@@ -1,5 +1,6 @@
 import io
 import os
+import rembg
 from flask import Flask, request, render_template, send_from_directory, send_file, Response
 from PIL import Image
 from werkzeug.utils import secure_filename
@@ -7,8 +8,9 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf.csrf import generate_csrf
-from flask import make_response
+from flask import make_response, jsonify
 from flask_cors import CORS
+from rembg import remove
 
 
 app = Flask(__name__)
@@ -22,7 +24,7 @@ app.config['WTF_CSRF_HEADERS'] = ['X-CSRFToken']
 app.config['SECRET_KEY'] = "shouldprobalychangethislater"
 
 # Flask backend
-CORS(app, supports_credentials=True, origins=["https://imgx-pearl.vercel.app/"])
+CORS(app, supports_credentials=True, origins=["https://imgx-tau.vercel.app/"])
 
 
 ALLOWED_INPUT_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp', 'gif', 'tif', 'svg', 'heic'}
@@ -37,13 +39,9 @@ limiter = Limiter(
     storage_uri="memory://",
 )
 
-
-
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_INPUT_EXTENSIONS
-
-
 
 @app.route('/get-csrf-token', methods=['GET'])
 def get_csrf_token():
@@ -148,6 +146,34 @@ def compress():
 
     # Default rendering for GET or invalid POST
     return render_template('compress-image.html')
+
+
+@app.route('/remove-background', methods=['GET', 'POST'])
+def remove_background():
+    if request.method == 'POST':
+        file = request.files.get('image')  # fixed .file to .files
+        is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+
+        if file and allowed_file(file.filename):
+            input_bytes = file.read()
+
+            # Remove background using rembg
+            output_bytes = remove(input_bytes)
+
+            # Prepare output image
+            output_image = Image.open(io.BytesIO(output_bytes)).convert("RGBA")
+            img_io = io.BytesIO()
+            output_image.save(img_io, 'PNG')  # Always output PNG with transparency
+            img_io.seek(0)
+
+            if is_ajax:
+                return send_file(img_io, mimetype='image/png')
+
+            return render_template('remove-background.html', result_image=img_io)
+
+        return jsonify({'error': 'Invalid file type'}), 400
+
+    return render_template('remove-background.html')
 
 
 @app.errorhandler(413)
